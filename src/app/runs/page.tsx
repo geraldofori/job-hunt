@@ -6,12 +6,7 @@ import { runs } from "@/server/db/schema";
 export const dynamic = "force-dynamic";
 
 export default async function RunsPage() {
-  const recent = db
-    .select()
-    .from(runs)
-    .orderBy(desc(runs.id))
-    .limit(20)
-    .all();
+  const recent = db.select().from(runs).orderBy(desc(runs.id)).limit(20).all();
 
   return (
     <div className="flex flex-col gap-6">
@@ -39,11 +34,15 @@ export default async function RunsPage() {
               <tr key={run.id} className="border-b last:border-0">
                 <td className="px-4 py-2.5 font-mono text-xs">{run.id}</td>
                 <td className="px-4 py-2.5">{run.type}</td>
-                <td className="px-4 py-2.5 text-xs text-muted-foreground">{run.startedAt}</td>
+                <td className="px-4 py-2.5 text-xs text-muted-foreground">
+                  {run.startedAt}
+                </td>
                 <td className="px-4 py-2.5 text-xs text-muted-foreground">
                   {run.finishedAt ?? "—"}
                 </td>
-                <td className="px-4 py-2.5 font-mono text-xs">{run.newJobs ?? run.newContacts ?? 0}</td>
+                <td className="px-4 py-2.5 font-mono text-xs">
+                  {run.newJobs ?? run.newContacts ?? 0}
+                </td>
                 <td className="max-w-80 truncate px-4 py-2.5 text-xs text-muted-foreground">
                   {run.error ?? run.sourceCounts ?? "—"}
                 </td>
@@ -51,7 +50,10 @@ export default async function RunsPage() {
             ))}
             {recent.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                <td
+                  colSpan={6}
+                  className="px-4 py-8 text-center text-muted-foreground"
+                >
                   No runs recorded yet.
                 </td>
               </tr>

@@ -123,8 +123,11 @@ export const jobStatus = [
   "rejected_job",
   "closed",
   "external",
+  "archived",
 ] as const;
 export type JobStatus = (typeof jobStatus)[number];
+
+export const ARCHIVE_AFTER_DAYS = 45;
 
 export const outreachStatus = ["draft", "sent", "replied", "bounced"] as const;
 export type OutreachStatus = (typeof outreachStatus)[number];

@@ -1,6 +1,6 @@
-import { count, desc, eq, gte } from "drizzle-orm";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { count, desc, eq, gte } from "drizzle-orm";
 
 import { db } from "@/server/db";
 import { contacts, jobs, outreachMessages, runs } from "@/server/db/schema";
@@ -22,7 +22,12 @@ export async function buildBrief(): Promise<Brief> {
     .get();
 
   const shortlisted = db
-    .select({ id: jobs.id, title: jobs.title, company: jobs.company, score: jobs.score })
+    .select({
+      id: jobs.id,
+      title: jobs.title,
+      company: jobs.company,
+      score: jobs.score,
+    })
     .from(jobs)
     .where(eq(jobs.status, "shortlisted"))
     .orderBy(desc(jobs.score))
@@ -48,7 +53,9 @@ export async function buildBrief(): Promise<Brief> {
   try {
     const responses = await scanResponses(10);
     gmailSection = responses.length
-      ? responses.map((r) => `- **${r.subject}** — ${r.from.split("<")[0].trim()}`).join("\n") + "\n"
+      ? `${responses
+          .map((r) => `- **${r.subject}** — ${r.from.split("<")[0].trim()}`)
+          .join("\n")}\n`
       : "_No application responses in the last 7 days._\n";
   } catch (error) {
     gmailSection = `_Gmail scan failed: ${error instanceof Error ? error.message : String(error)}_\n`;
@@ -78,9 +85,13 @@ ${gmailSection}
 export async function notify(title: string, message: string): Promise<void> {
   const { execFile } = await import("node:child_process");
   await new Promise<void>((resolve) => {
-    execFile("osascript", [
-      "-e",
-      `display notification ${JSON.stringify(message)} with title ${JSON.stringify(title)}`,
-    ], () => resolve());
+    execFile(
+      "osascript",
+      [
+        "-e",
+        `display notification ${JSON.stringify(message)} with title ${JSON.stringify(title)}`,
+      ],
+      () => resolve(),
+    );
   });
 }

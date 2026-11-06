@@ -23,7 +23,14 @@ function main() {
 
   let shortlisted = 0;
   let skipped = 0;
-  const updates: { id: string; score: number | null; status: string; workModel: string; language: string; notes: string | null }[] = [];
+  const updates: {
+    id: string;
+    score: number | null;
+    status: string;
+    workModel: string;
+    language: string;
+    notes: string | null;
+  }[] = [];
 
   for (const row of rows) {
     const verdict = evaluateJob({

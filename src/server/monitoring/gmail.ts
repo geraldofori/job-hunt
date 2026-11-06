@@ -4,8 +4,6 @@ import path from "node:path";
 const CREDENTIALS_PATH = path.resolve("config/google_client_secret.json");
 const TOKEN_PATH = path.resolve("config/google_token.json");
 
-const SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"];
-
 export type GmailResponse = {
   from: string;
   subject: string;
@@ -24,7 +22,10 @@ async function getGmail() {
   const tokenFile = await readFile(TOKEN_PATH, "utf8");
   const token = JSON.parse(tokenFile);
 
-  const client = new OAuth2({ clientId: client_id, clientSecret: client_secret });
+  const client = new OAuth2({
+    clientId: client_id,
+    clientSecret: client_secret,
+  });
   client.setCredentials({
     access_token: token.access_token,
     refresh_token: token.refresh_token,
@@ -33,14 +34,12 @@ async function getGmail() {
   return google.gmail({ version: "v1", auth: client });
 }
 
-export async function scanResponses(
-  maxResults = 20,
-): Promise<GmailResponse[]> {
+export async function scanResponses(maxResults = 20): Promise<GmailResponse[]> {
   const gmail = await getGmail();
 
   const list = await gmail.users.messages.list({
     userId: "me",
-    q: "in:inbox newer_than:7d (application OR bewerbung OR \"your application\" OR \"we received\") -unsubscribe category:promotions",
+    q: 'in:inbox newer_than:7d (application OR bewerbung OR "your application" OR "we received") -unsubscribe category:promotions',
     maxResults,
   });
 

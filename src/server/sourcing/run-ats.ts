@@ -3,10 +3,7 @@ import { eq } from "drizzle-orm";
 import { db, sqlite } from "@/server/db";
 import { companies, jobs } from "@/server/db/schema";
 import { atsClients } from "@/server/sourcing/ats-clients";
-import {
-  filterLocation,
-  isExcludedTitle,
-} from "@/server/sourcing/filters";
+import { filterLocation, isExcludedTitle } from "@/server/sourcing/filters";
 
 export type BoardConfig = {
   company: string;

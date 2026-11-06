@@ -49,6 +49,19 @@ export function QueueRow({ job }: { job: QueueJob }) {
 
         <form action={setJobStatusAction} className="flex items-center gap-2">
           <input type="hidden" name="jobId" value={job.id} />
+          <input type="hidden" name="status" value="archived" />
+          <input
+            type="hidden"
+            name="note"
+            value="no longer accepting applications"
+          />
+          <Button type="submit" variant="ghost" size="sm">
+            Archive
+          </Button>
+        </form>
+
+        <form action={setJobStatusAction} className="flex items-center gap-2">
+          <input type="hidden" name="jobId" value={job.id} />
           <input type="hidden" name="status" value="skipped" />
           <input type="hidden" name="note" value="dismissed from queue" />
           <Button type="submit" variant="ghost" size="sm">

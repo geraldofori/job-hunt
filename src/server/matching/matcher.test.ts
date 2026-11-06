@@ -82,11 +82,12 @@ describe("jobPassesFilters", () => {
       jobPassesFilters({ ...baseJob, title: "Junior Frontend Developer" })
         .accepted,
     ).toBe(false);
-    expect(jobPassesFilters({ ...baseJob, title: "Frontend Intern" }).accepted).toBe(
-      false,
-    );
     expect(
-      jobPassesFilters({ ...baseJob, title: "Praktikant Entwicklung" }).accepted,
+      jobPassesFilters({ ...baseJob, title: "Frontend Intern" }).accepted,
+    ).toBe(false);
+    expect(
+      jobPassesFilters({ ...baseJob, title: "Praktikant Entwicklung" })
+        .accepted,
     ).toBe(false);
   });
 

@@ -1,4 +1,5 @@
 import {
+  Archive,
   BriefcaseBusiness,
   Building2,
   Inbox,
@@ -13,6 +14,7 @@ const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/queue", label: "Queue", icon: Inbox },
   { href: "/jobs", label: "Jobs", icon: BriefcaseBusiness },
+  { href: "/archived", label: "Archived", icon: Archive },
   { href: "/companies", label: "Companies", icon: Building2 },
   { href: "/contacts", label: "Contacts", icon: MessagesSquare },
   { href: "/outreach", label: "Outreach", icon: Mail },
