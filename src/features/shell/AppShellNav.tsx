@@ -1,6 +1,7 @@
 import {
   BriefcaseBusiness,
   Building2,
+  Inbox,
   LayoutDashboard,
   Mail,
   MessagesSquare,
@@ -10,6 +11,7 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/queue", label: "Queue", icon: Inbox },
   { href: "/jobs", label: "Jobs", icon: BriefcaseBusiness },
   { href: "/companies", label: "Companies", icon: Building2 },
   { href: "/contacts", label: "Contacts", icon: MessagesSquare },
