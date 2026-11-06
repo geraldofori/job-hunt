@@ -25,4 +25,3 @@ if (process.env.NODE_ENV !== "production") {
 
 export const db = drizzle(sqlite, { schema });
 export { sqlite };
-export * as schema from "./schema";
