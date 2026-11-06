@@ -15,9 +15,9 @@ describe("isStudentRole", () => {
   });
 
   it("matches student roles in the description", () => {
-    expect(isStudentRole("Developer role — Studentische Hilfskraft welcome")).toBe(
-      true,
-    );
+    expect(
+      isStudentRole("Developer role — Studentische Hilfskraft welcome"),
+    ).toBe(true);
   });
 
   it("rejects non-student roles", () => {
@@ -34,7 +34,9 @@ describe("isExcludedTitle", () => {
 
   it("keeps technical roles even when the token hides inside a word", () => {
     expect(isExcludedTitle("Werkstudent Lehrbereich")).toBe(false);
-    expect(isExcludedTitle("Working Student Communication Systems")).toBe(false);
+    expect(isExcludedTitle("Working Student Communication Systems")).toBe(
+      false,
+    );
   });
 });
 

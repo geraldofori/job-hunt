@@ -68,9 +68,7 @@ export const lever: AtsClient = {
       location: job.categories?.location ?? "",
       jobUrl: job.hostedUrl,
       description: job.descriptionPlain ?? null,
-      datePosted: job.createdAt
-        ? new Date(job.createdAt).toISOString()
-        : null,
+      datePosted: job.createdAt ? new Date(job.createdAt).toISOString() : null,
     }));
   },
 };
@@ -171,7 +169,9 @@ function parsePersonioXml(xml: string): PersonioPosition[] {
 
   for (const block of positionBlocks) {
     const field = (tag: string): string | undefined => {
-      const match = block.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+      const match = block.match(
+        new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`),
+      );
       return match?.[1]?.trim();
     };
     const id = field("id");

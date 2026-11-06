@@ -6,7 +6,9 @@ async function main() {
 
   for (const result of results) {
     if (result.error) {
-      console.error(`✗ ${result.company} (${result.provider}): ${result.error}`);
+      console.error(
+        `✗ ${result.company} (${result.provider}): ${result.error}`,
+      );
     } else {
       console.log(
         `✓ ${result.company} (${result.provider}): ${result.inserted} new jobs from ${result.fetched} postings`,
@@ -15,7 +17,9 @@ async function main() {
   }
 
   const failed = results.filter((r) => r.error).length;
-  console.log(`\nDone: ${results.length - failed} boards ok, ${failed} failed.`);
+  console.log(
+    `\nDone: ${results.length - failed} boards ok, ${failed} failed.`,
+  );
   process.exit(failed === results.length ? 1 : 0);
 }
 

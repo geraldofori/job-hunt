@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-
+import { eq } from "drizzle-orm";
 import { db, sqlite } from "@/server/db";
 import { companies, jobs } from "@/server/db/schema";
 import { atsClients } from "@/server/sourcing/ats-clients";
@@ -8,7 +8,6 @@ import {
   isExcludedTitle,
   isStudentRole,
 } from "@/server/sourcing/filters";
-import { eq } from "drizzle-orm";
 
 export type BoardConfig = {
   company: string;
@@ -71,16 +70,16 @@ export async function runAtsBoard(config: BoardConfig): Promise<AtsRunResult> {
     if (isExcludedTitle(posting.title)) return false;
     if (!isStudentRole(`${posting.title} ${posting.description ?? ""}`))
       return false;
-    return filterLocation(
-      posting.location,
-      posting.description ?? "",
-    ).accepted;
+    return filterLocation(posting.location, posting.description ?? "").accepted;
   });
 
   let inserted = 0;
   if (eligible.length > 0) {
     const rows = eligible.map((posting) => {
-      const verdict = filterLocation(posting.location, posting.description ?? "");
+      const verdict = filterLocation(
+        posting.location,
+        posting.description ?? "",
+      );
       return {
         id: jobId(site, posting.jobUrl),
         companyId,
