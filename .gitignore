@@ -1,0 +1,76 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# ---- job-hunt local data (personal / secrets — never commit) ----
+
+# credentials & API keys
+config/google_client_secret.json
+config/google_token.json
+.env*.local
+!.env.example
+
+# personal documents
+documents/
+resume/
+cover_letters/
+
+# browser session (LinkedIn/Indeed/Stepstone logins)
+browser-profile/
+
+# logs & python runtime
+logs/
+python/venv/
+python/venv-broken/
+__pycache__/
+*.pyc
+
+# local database (personal job-search data)
+data/*.db
+data/*.db-journal
+data/runs/
+
+# legacy personal config (profile, search terms, google creds)
+config/
+
+# local queue/scratch data
+data/*
+!data/.gitkeep
