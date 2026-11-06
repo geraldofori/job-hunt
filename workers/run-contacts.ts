@@ -2,7 +2,9 @@ import { runContactDiscovery } from "../src/server/contacts/discovery";
 
 async function main() {
   const limit = Number(process.argv[2] ?? "5");
-  console.log(`Running contact discovery over ${limit} companies with domains…`);
+  console.log(
+    `Running contact discovery over ${limit} companies with domains…`,
+  );
 
   const result = await runContactDiscovery({
     companiesLimit: limit,

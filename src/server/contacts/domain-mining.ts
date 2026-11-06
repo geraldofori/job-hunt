@@ -83,7 +83,8 @@ export function isPlaceholderEmail(email: string): boolean {
   const lower = email.toLowerCase();
   const [local, domain] = lower.split("@");
   if (!domain) return true;
-  if (PLACEHOLDER_DOMAINS.some((blocked) => domain.endsWith(blocked))) return true;
+  if (PLACEHOLDER_DOMAINS.some((blocked) => domain.endsWith(blocked)))
+    return true;
   if (PLACEHOLDER_EMAIL_LOCALS.includes(local)) return true;
   return false;
 }

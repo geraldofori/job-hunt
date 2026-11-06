@@ -140,7 +140,11 @@ function displayNameFromEmail(email: string, source: string): string {
     info: "Info inbox",
   };
   if (roleNames[local]) return roleNames[local];
-  if (source === "impressum" && local.split(/[._-]/).length === 1 && local.length < 12) {
+  if (
+    source === "impressum" &&
+    local.split(/[._-]/).length === 1 &&
+    local.length < 12
+  ) {
     return `Inbox: ${local}`;
   }
   return local.replace(/[._-]/g, " ");
@@ -156,10 +160,10 @@ async function collectCandidates(
     (entry) => entry.companyName === target.name.toLowerCase(),
   );
 
-      for (const email of (mined?.emails ?? []).slice(0, 3)) {
-        candidates.push({
-          fullName: displayNameFromEmail(email, "job-description"),
-          role: null,
+  for (const email of (mined?.emails ?? []).slice(0, 3)) {
+    candidates.push({
+      fullName: displayNameFromEmail(email, "job-description"),
+      role: null,
       source: "job-description",
       linkedinUrl: null,
       email,
