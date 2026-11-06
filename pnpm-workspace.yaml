@@ -1,0 +1,7 @@
+allowBuilds:
+  better-sqlite3: set this to true or false
+  esbuild: set this to true or false
+minimumReleaseAgeExclude:
+  - lucide-react@1.70.0
+  - playwright-core@1.65.0
+  - playwright@1.65.0
