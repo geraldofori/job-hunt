@@ -14,8 +14,12 @@
     "coverage": "vitest run --coverage",
     "ats:run": "tsx workers/run-ats.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx src/server/db/migrate.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:migrate": "tsx --env-file=.env.local src/server/db/migrate.ts",
+    "db:studio": "drizzle-kit studio",
+    "discovery": "tsx --env-file=.env.local workers/run-discovery.ts",
+    "stepstone:run": "tsx --env-file=.env.local workers/run-stepstone.ts",
+    "contacts:run": "tsx --env-file=.env.local workers/run-contacts.ts",
+    "linkedin:login": "tsx --env-file=.env.local workers/linkedin-login.ts"
   },
   "dependencies": {
     "better-sqlite3": "^12.4.6",
