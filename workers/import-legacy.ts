@@ -33,28 +33,39 @@ async function main() {
     .all() as unknown as LegacyRow[];
 
   const existingIds = new Set(
-    db.select({ id: jobs.id }).from(jobs).all().map((j) => j.id),
+    db
+      .select({ id: jobs.id })
+      .from(jobs)
+      .all()
+      .map((j) => j.id),
   );
 
   const companyNames = [
     ...new Set(rows.map((r) => r.company).filter((c) => c.trim().length > 0)),
   ];
   const existingCompanies = new Set(
-    db.select({ name: companies.name }).from(companies).all().map((c) => c.name),
+    db
+      .select({ name: companies.name })
+      .from(companies)
+      .all()
+      .map((c) => c.name),
   );
-  const newCompanies = companyNames.filter((name) => !existingCompanies.has(name));
+  const newCompanies = companyNames.filter(
+    (name) => !existingCompanies.has(name),
+  );
 
   sqlite.transaction(() => {
     for (const name of newCompanies) {
-      db.insert(companies)
-        .values({ name })
-        .onConflictDoNothing()
-        .run();
+      db.insert(companies).values({ name }).onConflictDoNothing().run();
     }
   })();
 
   const companyByName = new Map(
-    db.select({ id: companies.id, name: companies.name }).from(companies).all().map((c) => [c.name, c.id]),
+    db
+      .select({ id: companies.id, name: companies.name })
+      .from(companies)
+      .all()
+      .map((c) => [c.name, c.id]),
   );
 
   const toInsert = rows
@@ -74,7 +85,8 @@ async function main() {
       easyApply: row.easy_apply === 1,
       score: row.score,
       status: row.status ?? "new",
-      firstSeen: row.first_seen ?? sql`CURRENT_TIMESTAMP` as unknown as string,
+      firstSeen:
+        row.first_seen ?? (sql`CURRENT_TIMESTAMP` as unknown as string),
       appliedAt: row.applied_at,
       coverLetterPath: row.cover_letter_path,
       notes: row.notes,

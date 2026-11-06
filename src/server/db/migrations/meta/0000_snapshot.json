@@ -82,9 +82,7 @@
       "indexes": {
         "companies_name_unique": {
           "name": "companies_name_unique",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": true
         }
       },
@@ -209,9 +207,7 @@
       "indexes": {
         "contacts_company_idx": {
           "name": "contacts_company_idx",
-          "columns": [
-            "company_id"
-          ],
+          "columns": ["company_id"],
           "isUnique": false
         }
       },
@@ -220,12 +216,8 @@
           "name": "contacts_company_id_companies_id_fk",
           "tableFrom": "contacts",
           "tableTo": "companies",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["company_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -378,23 +370,17 @@
       "indexes": {
         "jobs_status_idx": {
           "name": "jobs_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         },
         "jobs_score_idx": {
           "name": "jobs_score_idx",
-          "columns": [
-            "score"
-          ],
+          "columns": ["score"],
           "isUnique": false
         },
         "jobs_site_idx": {
           "name": "jobs_site_idx",
-          "columns": [
-            "site"
-          ],
+          "columns": ["site"],
           "isUnique": false
         }
       },
@@ -403,12 +389,8 @@
           "name": "jobs_company_id_companies_id_fk",
           "tableFrom": "jobs",
           "tableTo": "companies",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["company_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -504,9 +486,7 @@
       "indexes": {
         "outreach_contact_idx": {
           "name": "outreach_contact_idx",
-          "columns": [
-            "contact_id"
-          ],
+          "columns": ["contact_id"],
           "isUnique": false
         }
       },
@@ -515,12 +495,8 @@
           "name": "outreach_messages_contact_id_contacts_id_fk",
           "tableFrom": "outreach_messages",
           "tableTo": "contacts",
-          "columnsFrom": [
-            "contact_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["contact_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -528,12 +504,8 @@
           "name": "outreach_messages_job_id_jobs_id_fk",
           "tableFrom": "outreach_messages",
           "tableTo": "jobs",
-          "columnsFrom": [
-            "job_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["job_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }

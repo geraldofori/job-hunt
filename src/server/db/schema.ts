@@ -1,5 +1,11 @@
 import { sql } from "drizzle-orm";
-import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  real,
+  sqliteTable,
+  text,
+} from "drizzle-orm/sqlite-core";
 
 export const companies = sqliteTable("companies", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -11,16 +17,16 @@ export const companies = sqliteTable("companies", {
   industry: text("industry"),
   size: text("size"),
   notes: text("notes"),
-  createdAt: text("created_at")
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const jobs = sqliteTable(
   "jobs",
   {
     id: text("id").primaryKey(),
-    companyId: integer("company_id").references(() => companies.id, { onDelete: "set null" }),
+    companyId: integer("company_id").references(() => companies.id, {
+      onDelete: "set null",
+    }),
     site: text("site").notNull(),
     title: text("title").notNull(),
     company: text("company").notNull(),
@@ -34,9 +40,7 @@ export const jobs = sqliteTable(
     easyApply: integer("easy_apply", { mode: "boolean" }).default(false),
     score: real("score"),
     status: text("status").notNull().default("new"),
-    firstSeen: text("first_seen")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+    firstSeen: text("first_seen").notNull().default(sql`CURRENT_TIMESTAMP`),
     appliedAt: text("applied_at"),
     coverLetterPath: text("cover_letter_path"),
     notes: text("notes"),
@@ -52,24 +56,24 @@ export const contacts = sqliteTable(
   "contacts",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    companyId: integer("company_id").references(() => companies.id, { onDelete: "cascade" }),
+    companyId: integer("company_id").references(() => companies.id, {
+      onDelete: "cascade",
+    }),
     fullName: text("full_name").notNull(),
     role: text("role"),
     department: text("department"),
     linkedinUrl: text("linkedin_url"),
     email: text("email"),
     emailSource: text("email_source"),
-    emailVerified: integer("email_verified", { mode: "boolean" }).default(false),
+    emailVerified: integer("email_verified", { mode: "boolean" }).default(
+      false,
+    ),
     emailStatus: text("email_status").default("unknown"),
     phone: text("phone"),
     source: text("source"),
     notes: text("notes"),
-    createdAt: text("created_at")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: text("updated_at")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [index("contacts_company_idx").on(table.companyId)],
 );
@@ -78,7 +82,9 @@ export const outreachMessages = sqliteTable(
   "outreach_messages",
   {
     id: integer("id").primaryKey({ autoIncrement: true }),
-    contactId: integer("contact_id").references(() => contacts.id, { onDelete: "cascade" }),
+    contactId: integer("contact_id").references(() => contacts.id, {
+      onDelete: "cascade",
+    }),
     jobId: text("job_id").references(() => jobs.id, { onDelete: "set null" }),
     channel: text("channel").notNull().default("email"),
     subject: text("subject"),
@@ -87,9 +93,7 @@ export const outreachMessages = sqliteTable(
     sentAt: text("sent_at"),
     repliedAt: text("replied_at"),
     notes: text("notes"),
-    createdAt: text("created_at")
-      .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [index("outreach_contact_idx").on(table.contactId)],
 );
@@ -97,9 +101,7 @@ export const outreachMessages = sqliteTable(
 export const runs = sqliteTable("runs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   type: text("type").notNull(),
-  startedAt: text("started_at")
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+  startedAt: text("started_at").notNull().default(sql`CURRENT_TIMESTAMP`),
   finishedAt: text("finished_at"),
   newJobs: integer("new_jobs").default(0),
   newContacts: integer("new_contacts").default(0),
