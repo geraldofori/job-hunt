@@ -67,15 +67,27 @@ describe("jobPassesFilters", () => {
     expect(verdict.reason).toContain("excluded term");
   });
 
-  it("rejects jobs without student terms anywhere", () => {
+  it("accepts regular engineering roles without student terms", () => {
     const verdict = jobPassesFilters({
       ...baseJob,
       title: "Frontend Developer",
       description:
         "Join our team building web applications for enterprise clients.",
     });
-    expect(verdict.accepted).toBe(false);
-    expect(verdict.reason).toBe("no student term");
+    expect(verdict.accepted).toBe(true);
+  });
+
+  it("still excludes junior, intern, and internship titles", () => {
+    expect(
+      jobPassesFilters({ ...baseJob, title: "Junior Frontend Developer" })
+        .accepted,
+    ).toBe(false);
+    expect(jobPassesFilters({ ...baseJob, title: "Frontend Intern" }).accepted).toBe(
+      false,
+    );
+    expect(
+      jobPassesFilters({ ...baseJob, title: "Praktikant Entwicklung" }).accepted,
+    ).toBe(false);
   });
 
   it("accepts Saxony onsite", () => {

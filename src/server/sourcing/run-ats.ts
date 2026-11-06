@@ -6,7 +6,6 @@ import { atsClients } from "@/server/sourcing/ats-clients";
 import {
   filterLocation,
   isExcludedTitle,
-  isStudentRole,
 } from "@/server/sourcing/filters";
 
 export type BoardConfig = {
@@ -68,8 +67,6 @@ export async function runAtsBoard(config: BoardConfig): Promise<AtsRunResult> {
 
   const eligible = postings.filter((posting) => {
     if (isExcludedTitle(posting.title)) return false;
-    if (!isStudentRole(`${posting.title} ${posting.description ?? ""}`))
-      return false;
     return filterLocation(posting.location, posting.description ?? "").accepted;
   });
 

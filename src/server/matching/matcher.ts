@@ -5,31 +5,18 @@ const GERMAN_REQUIRED =
 const GERMAN_TEXT_HINTS =
   /\b(und|der|die|das|für|mit|wir|sie|ihre|unser|sind|bei|aus|auf)\b/gi;
 
-const STUDENT_TERMS = [
-  "werkstudent",
-  "working student",
-  "studentische hilfskraft",
-  "student assistant",
-  "student assistant",
-  "studentische mitarbeiter",
-  "werkstudentin",
-  "studentenjob",
-  "praktikum",
-  "praktikant",
-];
-
 const EXCLUDE_TITLE_TERMS = [
   "senior",
+  "junior",
   "lead",
   "principal",
   "head of",
   "manager",
   "direktor",
-  "vollzeit",
-  "full-time",
-  "fulltime",
   "ausbildung",
   "duales studium",
+  "praktikum",
+  "praktikant",
   "marketing",
   "seo",
   "campaign",
@@ -50,6 +37,7 @@ const EXCLUDE_TITLE_TERMS = [
 ];
 
 const TITLE_STUDENT_RE = /werkstudent|working student|studentische|student\b/i;
+const INTERN_RE = /\bintern(ship|s)?\b/i;
 const TITLE_TECH_RE =
   /software|it\b|web|develop|engineer|programm|coding|frontend|backend|fullstack|embedded|informatik|digital|technolog|daten|cyber|system|anwendung|technik|elektron|automation|robot|ml\b|ki\b|ai\b|entwicklung|simulation|konstruktion|rechner|softwaretechnik/i;
 const SAXONY_RE =
@@ -95,7 +83,16 @@ export function classifyWorkModel(job: MatchJob): string {
 
 export function jobPassesFilters(job: MatchJob): MatchVerdict {
   const title = job.title.toLowerCase();
-  const blob = `${job.title}\n${job.description ?? ""}`.toLowerCase();
+
+  if (INTERN_RE.test(title)) {
+    return {
+      accepted: false,
+      score: null,
+      language: "en",
+      workModel: "unknown",
+      reason: "excluded term: intern",
+    };
+  }
 
   for (const bad of EXCLUDE_TITLE_TERMS) {
     if (title.includes(bad)) {
@@ -107,15 +104,6 @@ export function jobPassesFilters(job: MatchJob): MatchVerdict {
         reason: `excluded term: ${bad}`,
       };
     }
-  }
-  if (!STUDENT_TERMS.some((term) => blob.includes(term))) {
-    return {
-      accepted: false,
-      score: null,
-      language: "en",
-      workModel: "unknown",
-      reason: "no student term",
-    };
   }
 
   const workModel =

@@ -21,7 +21,8 @@
     "contacts:run": "tsx --env-file=.env.local workers/run-contacts.ts",
     "linkedin:login": "tsx --env-file=.env.local workers/linkedin-login.ts",
     "daily": "tsx --env-file=.env.local workers/run-daily.ts",
-    "brief": "tsx --env-file=.env.local -e \"import(\"./src/server/monitoring/brief.ts\").then(m => m.buildBrief().then(b => console.log(b.markdown)))\""
+    "brief": "tsx --env-file=.env.local -e \"import(\"./src/server/monitoring/brief.ts\").then(m => m.buildBrief().then(b => console.log(b.markdown)))\"",
+    "rescore": "tsx workers/rescore.ts"
   },
   "dependencies": {
     "better-sqlite3": "^12.4.6",
